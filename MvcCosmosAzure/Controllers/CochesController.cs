@@ -70,5 +70,18 @@ namespace MvcCosmosAzure.Controllers
             await this.service.UpdateVehiculoAsync(car);
             return RedirectToAction("Vehiculos");
         }
+
+        public IActionResult Buscador()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Buscador(string marca)
+        {
+            List<Vehiculo> cars = await
+                this.service.GetVehiculosMarcaAsync(marca);
+            return View(cars);  
+        }
     }
 }

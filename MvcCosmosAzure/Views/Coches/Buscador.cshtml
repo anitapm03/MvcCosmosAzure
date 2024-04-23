@@ -1,0 +1,57 @@
+﻿@model List<Vehiculo>
+
+@{
+    ViewData["Title"] = "Vehiculos";
+}
+
+<h1>Buscador por marca</h1>
+
+<form>
+    <label>Marca</label>
+    <input type="text" name="marca" class="form-control" />
+    <br />
+    <button class="btn btn-success">Buscar</button>
+</form>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                   Marca
+                </th>
+                <th>
+                    Modelo
+                </th>
+                <th>
+                    Imagen
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modelo)
+                    </td>
+                    <td>
+                        <img src="@item.Imagen" />
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}

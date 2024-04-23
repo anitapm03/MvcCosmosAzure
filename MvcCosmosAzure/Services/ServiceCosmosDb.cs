@@ -91,5 +91,30 @@ namespace MvcCosmosAzure.Services
                 (id, new PartitionKey(id));
             return response.Resource;    
         }
+
+        public async Task<List<Vehiculo>>
+            GetVehiculosMarcaAsync(string marca)
+        {
+            //los filtros se concatenan
+            string sql =
+                "select * from c where c.Marca='" + marca + "'";
+
+            //se usa una clase llamada query definition
+            //para aplicar lso filtros
+            QueryDefinition definition =
+                new QueryDefinition(sql);
+
+            var query = 
+                this.containerCosmos.GetItemQueryIterator<Vehiculo>
+                (definition);
+
+            List<Vehiculo> cars = new List<Vehiculo>();
+            while (query.HasMoreResults)
+            {
+                var results = await query.ReadNextAsync();
+                cars.AddRange(results);
+            }
+            return cars;
+        }
     }
 }
